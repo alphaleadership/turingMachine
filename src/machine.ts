@@ -7,13 +7,13 @@ export default class Machine{
     private state: string
     private tape: Tape
     private pos: number
-    private intervalId: number | null
+    private interval: number | null
     constructor(code: Array<codeLine> = []){
         this.code = code
         this.state = "0"
         this.tape = new Tape()
         this.pos = 0
-        this.intervalId = null
+        this.interval = null
     }
     tick(){
         let actualValue = this.tape.get(this.pos)
@@ -23,9 +23,9 @@ export default class Machine{
                 codeLine[2] === actualValue
         })
         if(!actualCodeLine){
-            if(this.intervalId){
-                clearInterval(this.intervalId)
-                this.intervalId = null
+            if(this.interval){
+                clearInterval(this.interval)
+                this.interval = null
             }
             return
         }
@@ -33,10 +33,12 @@ export default class Machine{
         this.tape.set(this.pos, actualCodeLine[3])
         this.pos += actualCodeLine[4]
     }
-    clock(frequency: number, callback: Function){
-        this.intervalId = setInterval(()=> {
+    clock(frequency: number, callback: Function = () => {}){
+        console.log(this)
+        this.interval = setInterval(()=> {
             this.tick()
-            if(this.intervalId) callback.call(this)
+            if(this.interval) callback.call(this)
         }, frequency)
+        console.log(this)
     }
 }
