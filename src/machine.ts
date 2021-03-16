@@ -1,7 +1,7 @@
 import Tape from "./Tape"
 // target state, new state, target value, new value, move
 type codeLine = [string, string, string, string, number]
-type callbacks = {
+type clockCallbacks = {
     beforeCallback?: Function | null,
     afterCallback?: Function | null,
     haltedCallback?: Function | null,
@@ -20,6 +20,7 @@ export default class Machine{
         this.pos = 0
         this.interval = null
     }
+
     tick(){
         let actualValue = this.tape.get(this.pos)
         // @ts-ignore
@@ -38,7 +39,8 @@ export default class Machine{
         this.tape.set(this.pos, actualCodeLine[3])
         this.pos += actualCodeLine[4]
     }
-    clock(frequency: number, callbacks: callbacks){
+
+    clock(frequency: number, callbacks: clockCallbacks){
         this.interval = setInterval(()=> {
             if(callbacks.beforeCallback) callbacks.beforeCallback.call(this)
             this.tick()

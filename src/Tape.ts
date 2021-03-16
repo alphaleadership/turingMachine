@@ -1,16 +1,15 @@
 export default class Tape{
-    private data: [];
+    private data: Map<number, string>;
     constructor() {
-        this.data = []
+        this.data = new Map()
     }
     get(id: number){
-        if(this.data.hasOwnProperty(id)) { // @ts-ignore
-            return this.data[id]
+        if(this.data.hasOwnProperty(id)) {
+            return this.data.get(id)
         }
         return "0"
     }
-    set(id:number, value:string){
-        // @ts-ignore
-        this.data[id] = value
+    set(id: number, value: string){
+        this.data.set(id, value)
     }
 }
