@@ -2,6 +2,7 @@
   "dependencies": {
     "gulp": "^4.0.2",
     "gulp-nodemon": "^2.5.0",
-    "gulp-typescript": "^6.0.0-alpha.1"
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "typescript":"latest"
   }
 }
